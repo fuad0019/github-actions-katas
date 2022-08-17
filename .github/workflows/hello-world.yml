@@ -3,7 +3,7 @@ on: push
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
-    container: gradle:6-jdk11
+    
     steps:
       - name: Clone-down
         uses: actions/checkout@v2
@@ -14,7 +14,8 @@ jobs:
             path: .
   Build:
       needs: Clone-down
-      runs-on: ubuntu-latest
+      runs-on: ubuntu-latest¨
+      container: gradle:6-jdk11
       steps:
         - name: Download Repo
           uses: actions/download-artifact@v2
