@@ -3,7 +3,6 @@ on: push
 jobs:
   Clone-down:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Clone-down
         uses: actions/checkout@v2
@@ -14,7 +13,7 @@ jobs:
             path: .
   Build:
       needs: Clone-down
-      runs-on: ubuntu-latest¨
+      runs-on: ubuntu-latest
       container: gradle:6-jdk11
       steps:
         - name: Download Repo
@@ -22,32 +21,16 @@ jobs:
           with:
             name: code
             path: .
-        - name: my-step
+        - name: Build
           run:  chmod +x ci/build-app.sh && ci/build-app.sh
-        - name: Upload Repo
-          uses: actions/upload-artifact@v2
-          with:
-            name: build
-            path: .
-  Test:
-      needs: Build
-      runs-on: ubuntu-latest
-      steps:
-        - name: Download Repo
-          uses: actions/download-artifact@v2
-          with:
-            name: build
-            path: .    
         - name: Test
           run:  ci/unit-test-app.sh
-  Upload:
-      needs: Test
-      runs-on: ubuntu-latest
-      steps:
         - name: Upload Repo
           uses: actions/upload-artifact@v2
           with:
-            name: test
+            name: build
             path: .
+        
+
         
         
